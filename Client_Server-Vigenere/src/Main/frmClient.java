@@ -242,7 +242,7 @@ public class frmClient extends javax.swing.JFrame {
                 DataOutputStream dout=new DataOutputStream(client.getOutputStream());
                 DataInputStream dinResult=new DataInputStream(client.getInputStream());
                 
-                //lấy dự liệu từ input
+                //lấy dự liệu từ input 
                 String message=txtPlaintext.getText();
                 String key=txtKey.getText();
                 

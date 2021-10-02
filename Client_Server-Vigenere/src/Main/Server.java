@@ -23,20 +23,26 @@ public class Server {
        
         
         ServerSocket server = new ServerSocket(8888); 
-        System.out.println("Đang chờ kết nôi");
-        Socket socket = server.accept(); 
-        System.out.println("server đang kết nối client");
-        DataInputStream input = new DataInputStream(socket.getInputStream()); 
-        DataOutputStream output = new DataOutputStream(socket.getOutputStream());
+        System.out.println("Đang chờ kết nối");
+        while (true)
+        {
+            Socket socket = server.accept(); 
+            System.out.println("server đang kết nối client");
+            DataInputStream input = new DataInputStream(socket.getInputStream()); 
+            DataOutputStream output = new DataOutputStream(socket.getOutputStream());
+
+            String key = handleKey(input.readUTF()); 
+            String cipher = input.readUTF(); 
+            String message = descryptMessage(cipher,key ); 
+            letterAppearTheMost(message);
+            output.writeUTF(message+"-với ký tự '"+res+"' xuất hiện nhiều nhất ("+num+" lần)");
+            
+            socket.close(); // ngắt kết nối khi hoàn thành 
+        }
         
-        String key = input.readUTF(); 
-        String cipher = input.readUTF(); 
-        String message = descryptMessage(cipher,key ); 
-        letterAppearTheMost(message);
-        output.writeUTF(message+"-với ký tự '"+res+"' xuất hiện nhiều nhất ("+num+" lần)");
         
-        socket.close();
-        server.close(); 
+//        socket.close();
+//        server.close(); 
     }
     
     
@@ -81,5 +87,15 @@ public class Server {
                 num = count[str.charAt(i) - 97];
             }
         }
+    }
+     static String handleKey(String str)
+    {
+        String temp = "";
+        for (int i = 0; i < str.length(); i++)
+        {
+            if (str.charAt(i) != ' ') temp = temp + str.charAt(i);
+        }
+        
+        return temp;
     }
 }
