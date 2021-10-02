@@ -1,0 +1,363 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Main;
+
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import org.apache.commons.io.FileUtils;
+
+/**
+ *
+ * @author n18dc
+ */
+public class frmClient extends javax.swing.JFrame {
+
+    /**
+     * Creates new form frmClient
+     */
+    public frmClient() {
+        initComponents();
+    }
+    
+    private String handleKey(String str)
+    {
+        String temp = "";
+        for (int i = 0; i < str.length(); i++)
+        {
+            if (str.charAt(i) != ' ') temp = temp + str.charAt(i);
+        }
+        
+        return temp;
+    }
+    
+    private String enscryptMessage(String message, String key)
+    {
+        int lenght = key.length();
+        String res = "";
+        
+        for (int i = 0; i < message.length(); i++)
+        {
+            if (message.charAt(i) != ' ')
+            res = res + (char)((message.charAt(i) + key.charAt(i%lenght) - 2*97)%26 + 97);
+            else res = res + message.charAt(i);
+        }
+        return res;
+    }
+    public String descryptMessage(String message, String key)
+    {
+        String res = "";
+        int lenght = key.length();
+        
+        for (int i = 0; i < message.length(); i++)
+        {
+            if (message.charAt(i) != ' ')
+            {
+                if (message.charAt(i) - key.charAt(i%lenght) < 0)
+                {
+                    res = res + (char)(message.charAt(i) - key.charAt(i%lenght) + 26 + 97);
+                }
+                else
+                {
+                    res = res + (char)(message.charAt(i) - key.charAt(i%lenght) + 97);
+                }
+            }
+            else
+            {
+                res = res + " ";
+            }
+        }
+        return res;
+    }
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtPlaintext = new javax.swing.JTextArea();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        txtKey = new javax.swing.JTextField();
+        btnSendServer = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txtCiphertext = new javax.swing.JTextArea();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        txtResult = new javax.swing.JTextField();
+        btnClearText = new javax.swing.JButton();
+        btnReadFile = new javax.swing.JButton();
+        btnCheck = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
+        btnClear = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
+        jLabel1.setText("TCP WITH VIGENERE ALGORITHM");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(373, 26, -1, -1));
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        jLabel2.setText("Plaintext:");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 104, -1, -1));
+
+        txtPlaintext.setColumns(20);
+        txtPlaintext.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        txtPlaintext.setRows(5);
+        jScrollPane1.setViewportView(txtPlaintext);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 476, 238));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(384, 560, -1, -1));
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        jLabel4.setText("Key:");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 430, -1, -1));
+
+        txtKey.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jPanel1.add(txtKey, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 460, 360, 34));
+
+        btnSendServer.setBackground(new java.awt.Color(1, 152, 84));
+        btnSendServer.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        btnSendServer.setForeground(new java.awt.Color(255, 255, 255));
+        btnSendServer.setText("SEND");
+        btnSendServer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSendServerActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnSendServer, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 510, 140, 50));
+
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Arrows-Left-icon.png"))); // NOI18N
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 190, 60, 50));
+
+        txtCiphertext.setEditable(false);
+        txtCiphertext.setColumns(20);
+        txtCiphertext.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        txtCiphertext.setLineWrap(true);
+        txtCiphertext.setRows(5);
+        jScrollPane2.setViewportView(txtCiphertext);
+
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 140, 476, 240));
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        jLabel6.setText("Ciphertext:");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 100, -1, -1));
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        jLabel7.setText("Result:");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 620, -1, -1));
+
+        txtResult.setEditable(false);
+        txtResult.setBackground(new java.awt.Color(255, 255, 255));
+        txtResult.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jPanel1.add(txtResult, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 650, 360, 34));
+
+        btnClearText.setBackground(new java.awt.Color(220, 53, 69));
+        btnClearText.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        btnClearText.setForeground(new java.awt.Color(255, 255, 255));
+        btnClearText.setText("Clear");
+        btnClearText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClearTextActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnClearText, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 390, 120, 40));
+
+        btnReadFile.setBackground(new java.awt.Color(255, 193, 7));
+        btnReadFile.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        btnReadFile.setForeground(new java.awt.Color(51, 51, 51));
+        btnReadFile.setText("Open");
+        btnReadFile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReadFileActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnReadFile, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, 120, 40));
+
+        btnCheck.setBackground(new java.awt.Color(13, 110, 253));
+        btnCheck.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        btnCheck.setForeground(new java.awt.Color(255, 255, 255));
+        btnCheck.setText("CHECK");
+        btnCheck.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCheckActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnCheck, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 300, 100, 50));
+
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Arrows-Right-icon.png"))); // NOI18N
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 160, 60, 50));
+
+        btnClear.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        btnClear.setText("X");
+        btnClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClearActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnClear, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 460, -1, 30));
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(-7, -2, 1160, 740));
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        pack();
+        setLocationRelativeTo(null);
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void btnClearTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearTextActionPerformed
+        txtPlaintext.setText("");
+        txtCiphertext.setText("");
+
+    }//GEN-LAST:event_btnClearTextActionPerformed
+
+    private void btnSendServerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendServerActionPerformed
+            if(txtKey.getText().equals("")) return; 
+        try ( 
+                Socket client = new Socket("localhost",8888)) {
+                //tạo đối tượng in,out để lấy dữ liệu hay đẩy dữ liệu lên stream
+                DataOutputStream dout=new DataOutputStream(client.getOutputStream());
+                DataInputStream dinResult=new DataInputStream(client.getInputStream());
+                
+                //lấy dự liệu từ input
+                String message=txtPlaintext.getText();
+                String key=txtKey.getText();
+                
+                //Mã hóa plaintext;
+                String keyHandle=handleKey(key);
+                String cipher=this.enscryptMessage(message, keyHandle);
+                txtCiphertext.setText(cipher);
+                
+                 
+                //gửi dữ liệu mã hóa lên server
+                dout.writeUTF(key);
+                //gửi key lên server
+                dout.writeUTF(cipher);
+                
+                String result = dinResult.readUTF(); 
+                
+
+                //Nhận kết quả trả về
+                txtResult.setText(result);
+        } catch (IOException ex) {
+            Logger.getLogger(frmClient.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnSendServerActionPerformed
+
+    private void btnReadFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReadFileActionPerformed
+        // TODO add your handling code here:
+        // TODO add your handling code here:
+        String url="";
+        JFileChooser fileChooser=new JFileChooser();
+        int choose=fileChooser.showDialog(this,"Xác nhận");
+        if(choose==JFileChooser.APPROVE_OPTION){
+            url=fileChooser.getCurrentDirectory().toString()+"\\"+fileChooser.getSelectedFile().getName();
+            File mailTesting = new File(url);
+            try {
+                String mailData = FileUtils.readFileToString(mailTesting);
+                txtPlaintext.setText("");
+                txtPlaintext.setText(mailData);
+            } catch (Exception ex) {
+                Logger.getLogger(frmClient.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_btnReadFileActionPerformed
+
+    private void btnCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckActionPerformed
+        // TODO add your handling code here:
+        if(txtPlaintext.getText().trim().isEmpty() || txtKey.getText().trim().isEmpty())
+        {
+            JOptionPane.showMessageDialog(this, "Please enter Plain Text and Key", "Notify", 0);
+            return;
+        }
+        String key=handleKey(txtKey.getText());
+        txtCiphertext.setText(this.enscryptMessage(txtPlaintext.getText(), key));
+    }//GEN-LAST:event_btnCheckActionPerformed
+
+    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
+        // TODO add your handling code here:
+        txtKey.setText("");
+    }//GEN-LAST:event_btnClearActionPerformed
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(frmClient.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(frmClient.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(frmClient.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(frmClient.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new frmClient().setVisible(true);
+            }
+        });
+    }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCheck;
+    private javax.swing.JButton btnClear;
+    private javax.swing.JButton btnClearText;
+    private javax.swing.JButton btnReadFile;
+    private javax.swing.JButton btnSendServer;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextArea txtCiphertext;
+    private javax.swing.JTextField txtKey;
+    private javax.swing.JTextArea txtPlaintext;
+    private javax.swing.JTextField txtResult;
+    // End of variables declaration//GEN-END:variables
+}
