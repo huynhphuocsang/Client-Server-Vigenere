@@ -48,6 +48,7 @@ public class Server {
     
     static String descryptMessage(String message, String key)
     {
+        int value = 0;
         String res = "";
         int lenght = key.length();
         
@@ -55,13 +56,16 @@ public class Server {
         {
             if (message.charAt(i) != ' ')
             {
-                if (message.charAt(i) - key.charAt(i%lenght) < 0)
+                if (message.charAt(i) >= 97 && message.charAt(i) <= 122) value = 0;
+                else if (message.charAt(i) >= 65 && message.charAt(i) <=122) value = 32;
+                
+                if (message.charAt(i) + value - key.charAt(i%lenght) < 0)
                 {
-                    res = res + (char)(message.charAt(i) - key.charAt(i%lenght) + 26 + 97);
+                    res = res + (char)(message.charAt(i) + value - key.charAt(i%lenght) + 26 + 97 - value);
                 }
                 else
                 {
-                    res = res + (char)(message.charAt(i) - key.charAt(i%lenght) + 97);
+                    res = res + (char)(message.charAt(i) + value - key.charAt(i%lenght) + 97 - value);
                 }
             }
             else
@@ -73,6 +77,7 @@ public class Server {
     }
     static void letterAppearTheMost(String str)
     {
+        int value = 32;
         num = 0;
         int[] count = new int[26];
         
@@ -81,19 +86,30 @@ public class Server {
         for (int i = 0; i < str.length(); i++)
         {
             if (str.charAt(i) == ' ') continue;
-            if(++count[str.charAt(i) - 97] > num)
+            
+            if (str.charAt(i) >= 97 && str.charAt(i) <= 122) value = 0;
+            else if (str.charAt(i) >= 65 && str.charAt(i) <=122) value = 32;
+            
+            if(++count[str.charAt(i) + value - 97] > num)
             {
-                res = str.charAt(i);
-                num = count[str.charAt(i) - 97];
+                res = (char)(str.charAt(i) + value);
+                num = count[str.charAt(i) + value - 97];
             }
         }
     }
-     static String handleKey(String str)
+    static String handleKey(String str)
     {
+        int value = 0;
         String temp = "";
         for (int i = 0; i < str.length(); i++)
         {
-            if (str.charAt(i) != ' ') temp = temp + str.charAt(i);
+            if (str.charAt(i) != ' ')
+            {
+                if (str.charAt(i) >= 97 && str.charAt(i) <= 122) value = 0;
+                else if (str.charAt(i) >= 65 && str.charAt(i) <=122) value = 32;
+                
+                temp = temp + (char)(str.charAt(i) + value);
+            }
         }
         
         return temp;

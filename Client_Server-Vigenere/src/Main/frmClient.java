@@ -29,31 +29,44 @@ public class frmClient extends javax.swing.JFrame {
         initComponents();
     }
     
-    private String handleKey(String str)
+    String handleKey(String str)
     {
+        int value = 0;
         String temp = "";
         for (int i = 0; i < str.length(); i++)
         {
-            if (str.charAt(i) != ' ') temp = temp + str.charAt(i);
+            if (str.charAt(i) != ' ')
+            {
+                if (str.charAt(i) >= 97 && str.charAt(i) <= 122) value = 0;
+                else if (str.charAt(i) >= 65 && str.charAt(i) <=122) value = 32;
+                
+                temp = temp + (char)(str.charAt(i) + value);
+            }
         }
         
         return temp;
     }
     
-    private String enscryptMessage(String message, String key)
+    String enscryptMessage(String message, String key)
     {
+        int value = 0;
         int lenght = key.length();
         String res = "";
         
         for (int i = 0; i < message.length(); i++)
         {
             if (message.charAt(i) != ' ')
-            res = res + (char)((message.charAt(i) + key.charAt(i%lenght) - 2*97)%26 + 97);
+            {
+                if (message.charAt(i) >= 97 && message.charAt(i) <= 122) value = 0;
+                else if (message.charAt(i) >= 65 && message.charAt(i) <=122) value = 32;
+                
+                res = res + (char)((message.charAt(i) + key.charAt(i%lenght) - 2*97 + value)%26 + 97 - value);
+            }
             else res = res + message.charAt(i);
         }
         return res;
     }
-    public String descryptMessage(String message, String key)
+    /*public String descryptMessage(String message, String key)
     {
         String res = "";
         int lenght = key.length();
@@ -77,7 +90,7 @@ public class frmClient extends javax.swing.JFrame {
             }
         }
         return res;
-    }
+    } */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
