@@ -147,6 +147,7 @@ public class frmClient extends javax.swing.JFrame {
         btnSendServer.setBackground(new java.awt.Color(1, 152, 84));
         btnSendServer.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         btnSendServer.setForeground(new java.awt.Color(255, 255, 255));
+        btnSendServer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/down-icon.png"))); // NOI18N
         btnSendServer.setText("SEND");
         btnSendServer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -155,7 +156,7 @@ public class frmClient extends javax.swing.JFrame {
         });
         jPanel1.add(btnSendServer, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 510, 140, 50));
 
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Arrows-Left-icon.png"))); // NOI18N
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Arrows-Right-icon.png"))); // NOI18N
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 190, 60, 50));
 
         txtCiphertext.setEditable(false);
@@ -183,6 +184,7 @@ public class frmClient extends javax.swing.JFrame {
         btnClearText.setBackground(new java.awt.Color(220, 53, 69));
         btnClearText.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         btnClearText.setForeground(new java.awt.Color(255, 255, 255));
+        btnClearText.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Windows-Close-Program-icon.png"))); // NOI18N
         btnClearText.setText("Clear");
         btnClearText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -194,6 +196,7 @@ public class frmClient extends javax.swing.JFrame {
         btnReadFile.setBackground(new java.awt.Color(255, 193, 7));
         btnReadFile.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         btnReadFile.setForeground(new java.awt.Color(51, 51, 51));
+        btnReadFile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Documents-icon.png"))); // NOI18N
         btnReadFile.setText("Open");
         btnReadFile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -213,7 +216,7 @@ public class frmClient extends javax.swing.JFrame {
         });
         jPanel1.add(btnCheck, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 300, 100, 50));
 
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Arrows-Right-icon.png"))); // NOI18N
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Arrows-Left-icon.png"))); // NOI18N
         jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 160, 60, 50));
 
         btnClear.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
@@ -224,6 +227,8 @@ public class frmClient extends javax.swing.JFrame {
             }
         });
         jPanel1.add(btnClear, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 460, -1, 30));
+
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/background - Copy.png"))); // NOI18N
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(-7, -2, 1160, 740));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
