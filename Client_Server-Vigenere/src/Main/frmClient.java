@@ -55,7 +55,7 @@ public class frmClient extends javax.swing.JFrame {
         
         for (int i = 0; i < message.length(); i++)
         {
-            if (message.charAt(i) != ' ')
+            if (isCharacter(message.charAt(i)) && message.charAt(i) != ' ')
             {
                 if (message.charAt(i) >= 97 && message.charAt(i) <= 122) value = 0;
                 else if (message.charAt(i) >= 65 && message.charAt(i) <=122) value = 32;
@@ -65,6 +65,14 @@ public class frmClient extends javax.swing.JFrame {
             else res = res + message.charAt(i);
         }
         return res;
+    }
+    boolean isCharacter(char ch)
+    {
+        if (ch < 65) return false;
+        if (ch > 122) return false;
+        if (ch <= 90) return true;
+        if (ch >= 97) return true;
+        return false;
     }
     /*public String descryptMessage(String message, String key)
     {
