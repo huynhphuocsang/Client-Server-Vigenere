@@ -74,35 +74,11 @@ public class frmClient extends javax.swing.JFrame {
         if (ch >= 97) return true;
         return false;
     }
-    /*public String descryptMessage(String message, String key)
-    {
-        String res = "";
-        int lenght = key.length();
-        
-        for (int i = 0; i < message.length(); i++)
-        {
-            if (message.charAt(i) != ' ')
-            {
-                if (message.charAt(i) - key.charAt(i%lenght) < 0)
-                {
-                    res = res + (char)(message.charAt(i) - key.charAt(i%lenght) + 26 + 97);
-                }
-                else
-                {
-                    res = res + (char)(message.charAt(i) - key.charAt(i%lenght) + 97);
-                }
-            }
-            else
-            {
-                res = res + " ";
-            }
-        }
-        return res;
-    } */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        txtResult = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -117,13 +93,18 @@ public class frmClient extends javax.swing.JFrame {
         txtCiphertext = new javax.swing.JTextArea();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        txtResult = new javax.swing.JTextField();
         btnClearText = new javax.swing.JButton();
         btnReadFile = new javax.swing.JButton();
         btnCheck = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         btnClear = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        txt = new javax.swing.JTextArea();
         jLabel8 = new javax.swing.JLabel();
+
+        txtResult.setEditable(false);
+        txtResult.setBackground(new java.awt.Color(255, 255, 255));
+        txtResult.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -139,7 +120,9 @@ public class frmClient extends javax.swing.JFrame {
 
         txtPlaintext.setColumns(20);
         txtPlaintext.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        txtPlaintext.setLineWrap(true);
         txtPlaintext.setRows(5);
+        txtPlaintext.setWrapStyleWord(true);
         jScrollPane1.setViewportView(txtPlaintext);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 476, 238));
@@ -147,10 +130,10 @@ public class frmClient extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jLabel4.setText("Key:");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 430, -1, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 400, -1, -1));
 
         txtKey.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        jPanel1.add(txtKey, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 460, 360, 34));
+        jPanel1.add(txtKey, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 430, 360, 34));
 
         btnSendServer.setBackground(new java.awt.Color(1, 152, 84));
         btnSendServer.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
@@ -162,7 +145,7 @@ public class frmClient extends javax.swing.JFrame {
                 btnSendServerActionPerformed(evt);
             }
         });
-        jPanel1.add(btnSendServer, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 510, 140, 50));
+        jPanel1.add(btnSendServer, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 480, 130, 40));
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Arrows-Right-icon.png"))); // NOI18N
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 190, 60, 50));
@@ -182,12 +165,7 @@ public class frmClient extends javax.swing.JFrame {
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jLabel7.setText("Result:");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 620, -1, -1));
-
-        txtResult.setEditable(false);
-        txtResult.setBackground(new java.awt.Color(255, 255, 255));
-        txtResult.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        jPanel1.add(txtResult, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 650, 360, 34));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 550, -1, -1));
 
         btnClearText.setBackground(new java.awt.Color(220, 53, 69));
         btnClearText.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
@@ -234,10 +212,19 @@ public class frmClient extends javax.swing.JFrame {
                 btnClearActionPerformed(evt);
             }
         });
-        jPanel1.add(btnClear, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 460, -1, 30));
+        jPanel1.add(btnClear, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 430, -1, 30));
+
+        txt.setColumns(20);
+        txt.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        txt.setLineWrap(true);
+        txt.setRows(5);
+        txt.setWrapStyleWord(true);
+        jScrollPane3.setViewportView(txt);
+
+        jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 570, 410, 150));
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/background - Copy.png"))); // NOI18N
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(-7, -2, 1160, 740));
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1190, 740));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -261,7 +248,16 @@ public class frmClient extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClearTextActionPerformed
 
     private void btnSendServerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendServerActionPerformed
-            if(txtKey.getText().equals("")) return; 
+        if(txtPlaintext.getText().trim().isEmpty())
+        {
+            JOptionPane.showMessageDialog(this, "Please enter Plain Text", "Notify", 0);
+            return;
+        }
+        if(txtKey.getText().trim().isEmpty()){
+            JOptionPane.showMessageDialog(this, "Please enter Key", "Notify", 0);
+            return;
+        }
+        
         try ( 
                 Socket client = new Socket("localhost",8888)) {
                 //tạo đối tượng in,out để lấy dữ liệu hay đẩy dữ liệu lên stream
@@ -282,12 +278,11 @@ public class frmClient extends javax.swing.JFrame {
                 dout.writeUTF(key);
                 //gửi key lên server
                 dout.writeUTF(cipher);
-                
                 String result = dinResult.readUTF(); 
                 
 
                 //Nhận kết quả trả về
-                txtResult.setText(result);
+                txt.setText(result);
         } catch (IOException ex) {
             Logger.getLogger(frmClient.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -314,9 +309,13 @@ public class frmClient extends javax.swing.JFrame {
 
     private void btnCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckActionPerformed
         // TODO add your handling code here:
-        if(txtPlaintext.getText().trim().isEmpty() || txtKey.getText().trim().isEmpty())
+        if(txtPlaintext.getText().trim().isEmpty())
         {
-            JOptionPane.showMessageDialog(this, "Please enter Plain Text and Key", "Notify", 0);
+            JOptionPane.showMessageDialog(this, "Please enter Plain Text", "Notify", 0);
+            return;
+        }
+        if(txtKey.getText().trim().isEmpty()){
+            JOptionPane.showMessageDialog(this, "Please enter Key", "Notify", 0);
             return;
         }
         String key=handleKey(txtKey.getText());
@@ -381,6 +380,8 @@ public class frmClient extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTextArea txt;
     private javax.swing.JTextArea txtCiphertext;
     private javax.swing.JTextField txtKey;
     private javax.swing.JTextArea txtPlaintext;
