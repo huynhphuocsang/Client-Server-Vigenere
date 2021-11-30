@@ -85,7 +85,7 @@ public class Server {
         
         for (int i = 0; i < str.length(); i++)
         {
-            if (str.charAt(i) == ' ') continue;
+            if (!isCharacter(str.charAt(i))) continue;
             
             if (str.charAt(i) >= 97 && str.charAt(i) <= 122) value = 0;
             else if (str.charAt(i) >= 65 && str.charAt(i) <=122) value = 32;
