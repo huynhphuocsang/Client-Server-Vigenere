@@ -145,7 +145,7 @@ public class frmClient extends javax.swing.JFrame {
                 btnSendServerActionPerformed(evt);
             }
         });
-        jPanel1.add(btnSendServer, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 480, 140, 50));
+        jPanel1.add(btnSendServer, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 480, 130, 40));
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Arrows-Right-icon.png"))); // NOI18N
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 190, 60, 50));
@@ -221,7 +221,7 @@ public class frmClient extends javax.swing.JFrame {
         txt.setWrapStyleWord(true);
         jScrollPane3.setViewportView(txt);
 
-        jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 570, 410, 160));
+        jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 570, 410, 150));
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/background - Copy.png"))); // NOI18N
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1190, 740));
