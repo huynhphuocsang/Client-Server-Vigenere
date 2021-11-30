@@ -35,7 +35,7 @@ public class Server {
             String cipher = input.readUTF(); 
             String message = descryptMessage(cipher,key ); 
             letterAppearTheMost(message);
-            output.writeUTF(message+"-với ký tự '"+res+"' xuất hiện nhiều nhất ("+num+" lần)");
+            output.writeUTF(message+"\n-->với ký tự '"+res+"' xuất hiện nhiều nhất ("+num+" lần)");
             
             socket.close(); // ngắt kết nối khi hoàn thành 
         }
