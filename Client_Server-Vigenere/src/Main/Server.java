@@ -10,6 +10,8 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -21,7 +23,6 @@ public class Server {
     static char res = ' ';
     public static void main(String[] args) throws IOException {
        
-        
         ServerSocket server = new ServerSocket(8888); 
         System.out.println("Đang chờ kết nối");
         while (true)
@@ -34,8 +35,8 @@ public class Server {
             String key = handleKey(input.readUTF()); 
             String cipher = input.readUTF(); 
             String message = descryptMessage(cipher,key ); 
-            letterAppearTheMost(message);
-            output.writeUTF(message+"\n-->với ký tự '"+res+"' xuất hiện nhiều nhất ("+num+" lần)");
+            
+            output.writeUTF(message+"\n-->với ký tự xuát hiện nhiều nhất: "+letterAppearTheMost(message));
             
             socket.close(); // ngắt kết nối khi hoàn thành 
         }
@@ -75,27 +76,27 @@ public class Server {
         }
         return res;
     }
-    static void letterAppearTheMost(String str)
-    {
-        int value = 32;
-        num = 0;
-        int[] count = new int[26];
-        
-        for (int i = 0; i < 26; i++) count[i] = 0;
-        
-        for (int i = 0; i < str.length(); i++)
-        {
-            if (!isCharacter(str.charAt(i))) continue;
-            
-            if (str.charAt(i) >= 97 && str.charAt(i) <= 122) value = 0;
-            else if (str.charAt(i) >= 65 && str.charAt(i) <=122) value = 32;
-            
-            if(++count[str.charAt(i) + value - 97] > num)
-            {
-                res = (char)(str.charAt(i) + value);
-                num = count[str.charAt(i) + value - 97];
+    static String letterAppearTheMost(String str)
+    { 
+         Map<Character, Integer> letterMap = new HashMap<>();
+        int max = 0; 
+        for(int i = 0; i<str.length();i++){
+            if(letterMap.get(str.charAt(i))==null){
+                int quantityOfLetter = 1; 
+                for(int j=i+1;j<str.length();j++){
+                    if(str.charAt(i)==str.charAt(j)) quantityOfLetter++; 
+                }
+                letterMap.put(str.charAt(i), quantityOfLetter);
+                if(quantityOfLetter>max) max = quantityOfLetter;
             }
         }
+        String result = ""; 
+        for(Map.Entry<Character, Integer> entry: letterMap.entrySet()){
+                if(entry.getValue().equals(max)){
+                    result += entry.getKey()+"("+entry.getValue()+" lần);";
+                }
+        }
+        return result; 
     }
     static String handleKey(String str)
     {

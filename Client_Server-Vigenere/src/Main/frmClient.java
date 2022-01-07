@@ -46,7 +46,18 @@ public class frmClient extends javax.swing.JFrame {
         
         return temp;
     }
-    
+    private boolean checkNumberNotValid(String key){
+        for(int i=0;i<key.length();i++){
+            try{
+                int temp = Integer.parseInt(String.valueOf(key.charAt(i))); 
+                JOptionPane.showMessageDialog(null,"Key cannot contain numbers!","Warning!",JOptionPane.WARNING_MESSAGE);
+                return true; 
+            }catch(Exception e){
+                
+            }
+        }
+        return false;
+    }
     String enscryptMessage(String message, String key)
     {
         int value = 0;
@@ -258,6 +269,9 @@ public class frmClient extends javax.swing.JFrame {
             return;
         }
         
+        if(checkNumberNotValid(txtKey.getText().trim())){
+            return; 
+        }
         try ( 
                 Socket client = new Socket("localhost",8888)) {
                 //tạo đối tượng in,out để lấy dữ liệu hay đẩy dữ liệu lên stream
@@ -317,6 +331,10 @@ public class frmClient extends javax.swing.JFrame {
         if(txtKey.getText().trim().isEmpty()){
             JOptionPane.showMessageDialog(this, "Please enter Key", "Notify", 0);
             return;
+        }
+        
+        if(checkNumberNotValid(txtKey.getText().trim())){
+            return; 
         }
         String key=handleKey(txtKey.getText());
         txtCiphertext.setText(this.enscryptMessage(txtPlaintext.getText(), key));
