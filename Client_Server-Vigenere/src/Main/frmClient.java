@@ -38,7 +38,7 @@ public class frmClient extends javax.swing.JFrame {
             if (str.charAt(i) != ' ')
             {
                 if (str.charAt(i) >= 97 && str.charAt(i) <= 122) value = 0;
-                else if (str.charAt(i) >= 65 && str.charAt(i) <=122) value = 32;
+                else if (str.charAt(i) >= 65 && str.charAt(i) <= 90) value = 32;
                 
                 temp = temp + (char)(str.charAt(i) + value);
             }
@@ -50,7 +50,7 @@ public class frmClient extends javax.swing.JFrame {
         for(int i=0;i<key.length();i++){
            if (!isCharacter(key.charAt(i)))
            {
-               JOptionPane.showMessageDialog(null,"Key cannot contain numbers!","Warning!",JOptionPane.WARNING_MESSAGE);
+               JOptionPane.showMessageDialog(null,"Key invalid (English alphabet only)!","Warning!",JOptionPane.WARNING_MESSAGE);
                return true;
            }
         }
