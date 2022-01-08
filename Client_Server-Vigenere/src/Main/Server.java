@@ -81,6 +81,7 @@ public class Server {
          Map<Character, Integer> letterMap = new HashMap<>();
         int max = 0; 
         for(int i = 0; i<str.length();i++){
+            if (str.charAt(i) == ' ') continue;
             if(letterMap.get(str.charAt(i))==null){
                 int quantityOfLetter = 1; 
                 for(int j=i+1;j<str.length();j++){
