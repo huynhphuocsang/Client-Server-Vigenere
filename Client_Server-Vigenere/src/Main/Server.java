@@ -58,7 +58,7 @@ public class Server {
             if (isCharacter(message.charAt(i)) && message.charAt(i) != ' ')
             {     
                 if (message.charAt(i) >= 97 && message.charAt(i) <= 122) value = 0;
-                else if (message.charAt(i) >= 65 && message.charAt(i) <=122) value = 32;
+                else if (message.charAt(i) >= 65 && message.charAt(i) <= 90) value = 32;
                 
                 if (message.charAt(i) + value - key.charAt(i%lenght) < 0)
                 {

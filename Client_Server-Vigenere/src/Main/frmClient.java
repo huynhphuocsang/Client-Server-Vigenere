@@ -48,13 +48,11 @@ public class frmClient extends javax.swing.JFrame {
     }
     private boolean checkNumberNotValid(String key){
         for(int i=0;i<key.length();i++){
-            try{
-                int temp = Integer.parseInt(String.valueOf(key.charAt(i))); 
-                JOptionPane.showMessageDialog(null,"Key cannot contain numbers!","Warning!",JOptionPane.WARNING_MESSAGE);
-                return true; 
-            }catch(Exception e){
-                
-            }
+           if (!isCharacter(key.charAt(i)))
+           {
+               JOptionPane.showMessageDialog(null,"Key cannot contain numbers!","Warning!",JOptionPane.WARNING_MESSAGE);
+               return true;
+           }
         }
         return false;
     }
